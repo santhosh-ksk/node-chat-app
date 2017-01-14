@@ -1,63 +1,81 @@
-
 var socket = io();
 
-socket.on('connect',function (){
-  console.log('connected to the server');
+socket.on('connect', function() {
+    console.log('connected to the server');
 });
 
-socket.on('disconnect',function (){
-  console.log('Disconnected from the server');
+socket.on('disconnect', function() {
+    console.log('Disconnected from the server');
 });
 
 
-socket.on('newMessage', function(message){
-  console.log('New message',message);
+socket.on('newMessage', function(message) {
+    // console.log('New message',message);
+    //
+    // var li = jQuery ('<li></li>');
+    // li.text(`${message.from} ${formattedTime}: ${message.text}`);
+    //
+    // jQuery('#messages').append(li);
 
-  var formattedTime = moment(message.createdAt).format('h:mm a');
-  var li = jQuery ('<li></li>');
-  li.text(`${message.from} ${formattedTime}: ${message.text}`);
+    var formattedTime = moment(message.createdAt).format('h:mm a');
+    var template = jQuery('#message-template').html();
+    var html = Mustache.render(template, {
+        from: message.from,
+        text: message.text,
+        createdAt: formattedTime
+    });
 
-  jQuery('#messages').append(li);
+    jQuery('#messages').append(html);
+
 });
 
-socket.on('newLocationMessage', function (message) {
+socket.on('newLocationMessage', function(message) {
 
-  var formattedTime = moment(message.createdAt).format('h:mm a');
-  var li = jQuery('<li></li>');
-  var a = jQuery('<a target="_blank">My current Location</a>');
+    var formattedTime = moment(message.createdAt).format('h:mm a');
+    var template = jQuery('#location-message-template').html();
+    var html = Mustache.render(template, {
+      from: message.from,
+      url:message.url,
+      createdAt:formattedTime
+    });
+    jQuery('#messages').append(html);
 
-  li.text(`${message.from} ${formattedTime} : `);
-  a.attr('href', message.url);
-  li.append(a);
-  jQuery('#messages').append(li);
+    // var li = jQuery('<li></li>');
+    // var a = jQuery('<a target="_blank">My current Location</a>');
+    //
+    // li.text(`${message.from} ${formattedTime} : `);
+    // a.attr('href', message.url);
+    // li.append(a);
+    // jQuery('#messages').append(li);
 });
 
-jQuery('#message-form').on('submit',function(e){
-  e.preventDefault();
+jQuery('#message-form').on('submit', function(e) {
+    e.preventDefault();
 
-  var messageTextbox=jQuery('[name=message]');
+    var messageTextbox = jQuery('[name=message]');
 
-  socket.emit('createMessage',{
-    from : 'user',
-    text : jQuery('[name=message]').val()
-  }, function(){
-      messageTextbox.val('')
-  });
+    socket.emit('createMessage', {
+        from: 'user',
+        text: jQuery('[name=message]').val()
+    }, function() {
+        messageTextbox.val('')
+    });
 });
 var locationButton = jQuery('#send-location');
-locationButton.on('click', function(){
-  if(!navigator.geolocation){
-    return alert('Geolocation not supported by browser.');
-  }
-  locationButton.attr('disabled', 'disabled').text('sending location...');
+locationButton.on('click', function() {
+    if (!navigator.geolocation) {
+        return alert('Geolocation not supported by browser.');
+    }
+    locationButton.attr('disabled', 'disabled').text('sending location...');
 
-  navigator.geolocation.getCurrentPosition(function(position){
-      locationButton.removeAttr('disabled').text('send location');
-      socket.emit('createLocationMessage', {
-        latitude : position.coords.latitude,
-        longitude : position.coords.longitude
-      })
-  },function(){
-    locationButton.removeAttr('disabled').text('send location');
-    alert('Unable to fetch location.')});
+    navigator.geolocation.getCurrentPosition(function(position) {
+        locationButton.removeAttr('disabled').text('send location');
+        socket.emit('createLocationMessage', {
+            latitude: position.coords.latitude,
+            longitude: position.coords.longitude
+        })
+    }, function() {
+        locationButton.removeAttr('disabled').text('send location');
+        alert('Unable to fetch location.')
+    });
 });
