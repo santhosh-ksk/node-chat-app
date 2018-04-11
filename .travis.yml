@@ -3,5 +3,11 @@ sudo: false
 language: node_js
 node_js:
   - "6.9.1"
+addons:
+  sonarcloud:
+    organization: "santhosh-ksk-github"
+    token:
+      secure: "my secret phrase"
 script:
   - npm test
+  -sonar-scanner
