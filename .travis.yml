@@ -9,5 +9,4 @@ addons:
     token:
       secure: "my secret phrase"
 script:
-  - npm test
   -sonar-scanner
