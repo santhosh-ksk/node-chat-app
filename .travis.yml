@@ -5,7 +5,7 @@ node_js:
   - "6.9.1"
 addons:
   sonarcloud:
-    organization: "santhosh-ksk-github"
+    organization: "santhosh-ksk"
     token:
       secure: "my secret phrase"
 script:
