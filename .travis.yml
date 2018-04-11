@@ -13,5 +13,5 @@ addons:
       secure: "1a5e6fd9a26a119a696c0491207d72e66f7337c4"
 script:
   - "npm test"
-  # - "sonar-scanner"
+  - "sonar-scanner"
 
