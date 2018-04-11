@@ -7,7 +7,7 @@ addons:
   sonarcloud:
     organization: "santhosh-ksk-github"
     token:
-      secure: "nodechatapp"
+      secure: "2390cd4121464e84b393c793767a3c7c71c03f7c"
 script:
   - "npm test"
   - "sonar-scanner"
