@@ -8,9 +8,9 @@ cache:
     - "node_modules"
 addons:
   sonarcloud:
-    organization: "ksk-github"
+    organization: "nodechatapp"
     token:
-      secure: "1a5e6fd9a26a119a696c0491207d72e66f7337c4"
+      secure: "9d4f09661c7b04afc53658757603b5e8036ca712"
 script:
   - "npm test"
   - "sonar-scanner"
