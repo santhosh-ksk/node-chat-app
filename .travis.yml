@@ -23,4 +23,4 @@ deploy:
    organization: santhoshkumark-org
    space: staging
 
-   travis encrypt --add deploy.password
+travis encrypt --add deploy.password
