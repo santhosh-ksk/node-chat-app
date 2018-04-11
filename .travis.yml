@@ -22,5 +22,4 @@ deploy:
    api: https://api.run.pivotal.io
    organization: santhoshkumark-org
    space: staging
-
 travis encrypt --add deploy.password
