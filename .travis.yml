@@ -14,10 +14,13 @@ addons:
 script:
   - "npm test"
   # - "sonar-scanner"
+
 deploy:
    provider: cloudfoundry
    username: santhoshkumarkcse@gmail.com
-   password: Kan$an123
+   password: Kan\$an123
    api: https://api.run.pivotal.io
    organization: santhoshkumark-org
    space: staging
+
+   travis encrypt --add deploy.password
