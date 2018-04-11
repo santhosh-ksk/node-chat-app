@@ -5,9 +5,9 @@ node_js:
   - "6.9.1"
 addons:
   sonarcloud:
-    organization: "santhosh-ksk"
+    organization: "santhosh-ksk-github"
     token:
-      secure: "santhosh-ksk-github"
+      secure: "nodechatapp"
 script:
   - "npm test"
   - "sonar-scanner"
