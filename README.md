@@ -3,7 +3,7 @@
 ----------------------useful commands-------------------------
 
 To install your dependencies
-npm install 
+"npm install"
 
 To start the application
-npm start
+"npm start"
